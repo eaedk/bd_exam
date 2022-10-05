@@ -20,7 +20,7 @@
 
         db.Films.countDocuments()
 
-1. Donner l’occupation de Shawn Saul.La requête affiche uniquement son nom et son occupation.
+1. Donner l’occupation de Shawn Saul. La requête affiche uniquement son nom et son occupation.
 
         db.Utilisateurs.find({ nom: "Shawn Saul" }, { _id: 0, nom: 1, occupation: 1, })
 
@@ -42,7 +42,7 @@
         db.Utilisateurs.find(
             {
                 gender: "M",
-                occupation: "programmer"
+                occupation: "artist"
             }
         ).limit(3).sort({ age: -1 })
 
@@ -60,7 +60,7 @@
                 "occupation": "programmer",
             })
 
-1. Choisir un film de la collection films et mettre à jour l’enregistrement ajoutée à la question précédente en ajoutant le champ films respectant le schéma adopté par les autres enregistrements.Pour le champ timestamp, utiliser l’heure courante: Math.round(new Date().getTime() / 1000)
+1. Choisir un film de la collection films et mettre à jour l’enregistrement ajoutée à la question précédente en ajoutant le champ films respectant le schéma adopté par les autres enregistrements. Pour le champ timestamp, utiliser l’heure courante: Math.round(new Date().getTime() / 1000)
 
         db.Utilisateurs.findOneAndUpdate(
             { "nom": { $regex: "Emmanuel Koupoh" } },
