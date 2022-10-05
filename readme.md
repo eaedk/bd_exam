@@ -207,7 +207,11 @@
         db.Utilisateurs.aggregate([
             {
                 $match: {
-                    "films.idfilm": db.Films.findOne({ "titre": { $regex: "Terminator 2: Judgment Day" } }, { _id: 1 })["_id"]
+                    "films.idfilm": 
+                    db.Films.findOne({ 
+                        "titre": { $regex: "Terminator 2: Judgment Day" } }, 
+                        { _id: 1 }
+                        )["_id"]
                 }
             },
             {
