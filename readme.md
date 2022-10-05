@@ -216,7 +216,9 @@
                         $filter: {
                             input: "$films",
                             as: 'film',
-                            cond: { $eq: ["$$film.idfilm", db.Films.findOne({ "titre": { $regex: "Terminator 2: Judgment Day" } }, 
+                            cond: { $eq: ["$$film.idfilm", 
+                            db.Films.findOne({ "titre": 
+                            { $regex: "Terminator 2: Judgment Day" } }, 
                             { _id: 1 })["_id"]] }, //
                         }
                     }
