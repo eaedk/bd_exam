@@ -6,11 +6,13 @@
 
 1. Importer ces deux fichiers Films et Utilisateurs sur Mongo Db.
 
-        mongoimport --db exam --collection Films --type json --file Films.json "mongodb+srv://cluster0.vlhcs.mongodb.net/" --username koupoh
+        mongoimport --db exam --collection Films --type json --file Films.json
+         "mongodb+srv://cluster0.vlhcs.mongodb.net/" --username koupoh
 
    ...
 
-        mongoimport --db exam --collection Utilisateurs --type json --file Utilisateurs.json "mongodb+srv://cluster0.vlhcs.mongodb.net/" --username koupoh
+        mongoimport --db exam --collection Utilisateurs --type json --file Utilisateurs.json 
+        "mongodb+srv://cluster0.vlhcs.mongodb.net/" --username koupoh
 
 1. Retourner le nombre d’utilisateurs dans la base de données.
 
@@ -22,7 +24,8 @@
 
 1. Donner l’occupation de Shawn Saul.La requête affiche uniquement son nom et son occupation.
 
-        db.Utilisateurs.find({ nom: "Shawn Saul" }, { _id: 0, nom: 1, occupation: 1, })
+        db.Utilisateurs.find({ nom: "Shawn Saul" }, 
+        { _id: 0, nom: 1, occupation: 1, })
 
 1. Donner le nombre d’utilisateurs dont l’age est entre 18 et 30 ans.
 
@@ -69,8 +72,11 @@
                 "$set":
                 {
                     "films": [{
-                        "idfilm": db.Films.findOne({ "titre": { $regex: "mortal" } }, { _id: 1 })["_id"],
-                        "note": 4, 
+                        "idfilm": db.Films.findOne(
+                            { "titre": { $regex: "mortal" } },
+                            { _id: 1 }
+                        )["_id"],
+                        "note": 4,
                         "timestamp": Math.round(new Date().getTime() / 1000)
                     }]
                 }
@@ -184,7 +190,9 @@
                     {
                         _id: 1,
                         length: { $strLenCP: "$titre" },
-                        year: { $substrCP: ["$titre", { $subtract: [{ $strLenCP: "$titre" }, 6] }, 6] },
+                        year: { $substrCP: 
+                        ["$titre", { $subtract: [{ $strLenCP: "$titre" }, 6]
+                         }, 6] },
                     }
                 },
                 { $match: { year: { $regex: "(198)" } } },
@@ -208,7 +216,8 @@
                         $filter: {
                             input: "$films",
                             as: 'film',
-                            cond: { $eq: ["$$film.idfilm", db.Films.findOne({ "titre": { $regex: "Terminator 2: Judgment Day" } }, { _id: 1 })["_id"]] }, //
+                            cond: { $eq: ["$$film.idfilm", db.Films.findOne({ "titre": { $regex: "Terminator 2: Judgment Day" } }, 
+                            { _id: 1 })["_id"]] }, //
                         }
                     }
                 }
