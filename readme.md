@@ -41,9 +41,10 @@
 
         db.Utilisateurs.find(
             {
-                gender: "M",
-                occupation: "programmer"
-            }
+                genre: "M",
+                occupation: "artist"
+            },
+            //{nom:1, age:1} // pour avoir juste le nom, l'age et l'id
         ).limit(3).sort({ age: -1 })
 
 1. Afficher les différentes occupations présentes dans la base de données.
