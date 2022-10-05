@@ -51,7 +51,7 @@
 
         db.Utilisateurs.distinct("occupation")
 
-1. Insérer un nouvel utilisateur dans la base de données.Ne pas mettre pour l’instant le champ films.
+1. Insérer un nouvel utilisateur dans la base de données. Ne pas mettre pour l’instant le champ films.
 
         db.Utilisateurs.insertOne(
             {
