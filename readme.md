@@ -20,7 +20,7 @@
 
         db.Films.countDocuments()
 
-1. Donner l’occupation de Shawn Saul. La requête affiche uniquement son nom et son occupation.
+1. Donner l’occupation de Shawn Saul.La requête affiche uniquement son nom et son occupation.
 
         db.Utilisateurs.find({ nom: "Shawn Saul" }, { _id: 0, nom: 1, occupation: 1, })
 
@@ -42,7 +42,7 @@
         db.Utilisateurs.find(
             {
                 gender: "M",
-                occupation: "artist"
+                occupation: "programmer"
             }
         ).limit(3).sort({ age: -1 })
 
@@ -60,7 +60,7 @@
                 "occupation": "programmer",
             })
 
-1. Choisir un film de la collection films et mettre à jour l’enregistrement ajoutée à la question précédente en ajoutant le champ films respectant le schéma adopté par les autres enregistrements. Pour le champ timestamp, utiliser l’heure courante: Math.round(new Date().getTime() / 1000)
+1. Choisir un film de la collection films et mettre à jour l’enregistrement ajoutée à la question précédente en ajoutant le champ films respectant le schéma adopté par les autres enregistrements.Pour le champ timestamp, utiliser l’heure courante: Math.round(new Date().getTime() / 1000)
 
         db.Utilisateurs.findOneAndUpdate(
             { "nom": { $regex: "Emmanuel Koupoh" } },
@@ -195,20 +195,6 @@
 
 1. Déterminer la note moyenne du film « Terminator 2: Judgment Day », qui a comme id 589.
 
-
-        db.Utilisateurs.countDocuments(
-            {
-                "films.idfilm":
-                    db.Films.findOne(
-                        {
-                            "titre":
-                                { $regex: "Terminator 2: Judgment Day" }
-                        }, { _id: 1 })["_id"]
-            },
-            { _id: 1, films: 1, })
-
-1. En une seule requête, retourner pour chaque utilisateur son id, son nom, les notes maximale, minimale et moyenne qu’il a données, et ordonner le résultat par note moyenne croissante.
-
         db.Utilisateurs.aggregate([
             {
                 $match: {
@@ -242,3 +228,18 @@
                 }
             },
         ])
+
+1. En une seule requête, retourner pour chaque utilisateur son id, son nom, les notes maximale, minimale et moyenne qu’il a données, et ordonner le résultat par note moyenne croissante.
+
+        db.Utilisateurs.aggregate([
+            {
+                $project: {
+                    nom: 1,
+                    note_min: { $min: "$films.note" },
+                    note_max: { $max: "$films.note" },
+                    note_moy: { $avg: "$films.note" },
+                }
+            },
+            { $sort: { note_moy: 1 } },
+        ])
+        
